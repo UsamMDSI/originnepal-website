@@ -30,28 +30,27 @@
 })();
 
 // ── Navigation scroll behavior ────────────────────────────────
-(function () {
+function initNav() {
   const nav = document.querySelector('.nav');
-  if (!nav) return;
-  let lastY = 0;
-  window.addEventListener('scroll', () => {
-    const y = window.scrollY;
-    if (y > 20) nav.classList.add('nav--scrolled');
-    else nav.classList.remove('nav--scrolled');
-    lastY = y;
-  }, { passive: true });
-})();
+  if (nav) {
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 20) nav.classList.add('nav--scrolled');
+      else nav.classList.remove('nav--scrolled');
+    }, { passive: true });
+  }
+}
 
 // ── Mobile menu toggle ────────────────────────────────────────
-(function () {
+function initMobileMenu() {
   const hamburger = document.querySelector('.nav-hamburger');
   const mobileMenu = document.querySelector('.nav-mobile');
   if (!hamburger || !mobileMenu) return;
 
-  hamburger.addEventListener('click', () => {
+  hamburger.addEventListener('click', (e) => {
+    e.stopPropagation();
     const isOpen = mobileMenu.classList.toggle('open');
     hamburger.classList.toggle('open', isOpen);
-    hamburger.setAttribute('aria-expanded', isOpen);
+    hamburger.setAttribute('aria-expanded', String(isOpen));
     document.body.style.overflow = isOpen ? 'hidden' : '';
   });
 
@@ -60,6 +59,7 @@
     if (!hamburger.contains(e.target) && !mobileMenu.contains(e.target)) {
       mobileMenu.classList.remove('open');
       hamburger.classList.remove('open');
+      hamburger.setAttribute('aria-expanded', 'false');
       document.body.style.overflow = '';
     }
   });
@@ -69,10 +69,24 @@
     link.addEventListener('click', () => {
       mobileMenu.classList.remove('open');
       hamburger.classList.remove('open');
+      hamburger.setAttribute('aria-expanded', 'false');
       document.body.style.overflow = '';
     });
   });
-})();
+}
+
+// Run after components are injected into DOM
+document.addEventListener('componentsLoaded', () => {
+  initNav();
+  initMobileMenu();
+  initActiveNavLink();
+});
+// Also run on DOMContentLoaded as fallback
+document.addEventListener('DOMContentLoaded', () => {
+  initNav();
+  initMobileMenu();
+  initActiveNavLink();
+});
 
 // ── Scroll reveal ─────────────────────────────────────────────
 (function () {
@@ -92,7 +106,7 @@
 })();
 
 // ── Active nav link ───────────────────────────────────────────
-(function () {
+function initActiveNavLink() {
   const currentPage = window.location.pathname.split('/').pop() || 'index.html';
   document.querySelectorAll('.nav-link').forEach(link => {
     const href = link.getAttribute('href');
@@ -100,7 +114,7 @@
       link.classList.add('active');
     }
   });
-})();
+}
 
 // ── Smooth counter animation ──────────────────────────────────
 function animateCounter(el) {
