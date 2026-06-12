@@ -15,11 +15,11 @@
   position: absolute;
   inset: 0;
   z-index: 0;
-  background: linear-gradient(160deg,
-    var(--color-primary-active) 0%,
-    var(--color-primary) 40%,
-    #1a4a2a 70%,
-    #0d2a18 100%
+  background: linear-gradient(145deg,
+    #0e2c1a 0%,
+    #1f5c38 35%,
+    #3a2060 70%,
+    #2a1550 100%
   );
 }
 
@@ -55,9 +55,9 @@
 }
 
 .hero-badge .badge-accent {
-  background: rgba(184, 92, 44, 0.3);
-  color: #ffd4b0;
-  border: 1px solid rgba(184, 92, 44, 0.5);
+  background: rgba(107, 63, 160, 0.35);
+  color: #d4b8ff;
+  border: 1px solid rgba(107, 63, 160, 0.5);
   font-size: var(--text-xs);
 }
 
@@ -72,7 +72,7 @@
 }
 
 .hero-title-accent {
-  color: var(--color-gold-light);
+  color: #c4a0ff;
   font-style: italic;
 }
 
@@ -140,7 +140,10 @@
   font-family: var(--font-display);
   font-size: var(--text-2xl);
   font-weight: 700;
-  color: var(--color-primary);
+  background: linear-gradient(135deg, var(--color-primary) 30%, var(--color-accent));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
   line-height: 1;
   margin-bottom: var(--space-2);
 }
@@ -192,7 +195,7 @@
 }
 
 .product-card:hover {
-  box-shadow: var(--shadow-xl);
+  box-shadow: var(--shadow-xl), 0 0 0 2px var(--color-accent);
   transform: translateY(-4px);
 }
 
@@ -442,7 +445,7 @@
 }
 
 .pillar:hover {
-  box-shadow: var(--shadow-lg);
+  box-shadow: var(--shadow-lg), 0 0 0 2px var(--color-accent);
   transform: translateY(-4px);
 }
 
@@ -481,7 +484,7 @@
 
 /* ── CTA SECTION ────────────────────────────────────────────── */
 .cta-section {
-  background: linear-gradient(135deg, var(--color-primary-active) 0%, var(--color-primary) 50%, #1a4a2a 100%);
+  background: linear-gradient(135deg, #0e2c1a 0%, #1f5c38 40%, #3a2060 80%, #2a1550 100%);
   position: relative;
   overflow: hidden;
 }
